@@ -1,0 +1,13 @@
+torch
+torchvision
+mlflow
+boto3
+minio
+opencv-python
+numpy
+pandas
+scikit-learn
+tqdm
+fastapi
+uvicorn
+prometheus-client

@@ -1,0 +1,5 @@
+# Bỏ qua folder data
+data/
+
+# Bỏ qua folder logs
+logs/
