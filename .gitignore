@@ -3,3 +3,6 @@ data/
 
 # Bỏ qua folder logs
 logs/
+
+# Bỏ qua folder run
+run/
