@@ -44,7 +44,9 @@ stop:
 
 restart:
 	$(DOCKER_COMPOSE) down
-	$(DOCKER_COMPOSE) up -d --build
+	$(DOCKER_COMPOSE) up -d
+reload-api:
+	$(DOCKER_COMPOSE) restart api
 
 logs:
 	$(DOCKER_COMPOSE) logs -f
@@ -54,16 +56,39 @@ logs:
 # ============================
 mlflow:
 	@echo "Open MLflow UI at $(MLFLOW_URI)"
-
+stop-ml:
+	$(DOCKER_COMPOSE) stop mlflow
+rm-ml:
+	$(DOCKER_COMPOSE) rm -f mlflow
+start-ml:
+	$(DOCKER_COMPOSE) up -d mlflow
+restart-ml:
+	$(DOCKER_COMPOSE) stop mlflow
+	$(DOCKER_COMPOSE) rm -f mlflow
+	$(DOCKER_COMPOSE) up -d mlflow
+log-ml:
+	$(DOCKER_COMPOSE) logs -f mlflow
+stop-api:
+	$(DOCKER_COMPOSE) stop api
+rm-api:
+	$(DOCKER_COMPOSE) rm -f api
+start-api:
+	$(DOCKER_COMPOSE) up -d api
+restart-api:
+	$(DOCKER_COMPOSE) down api
+	$(DOCKER_COMPOSE) build --no-cache api
+	$(DOCKER_COMPOSE) up -d api
+log-api:
+	$(DOCKER_COMPOSE) logs -f api
 # ============================
 # Training
 # ============================
 train-yolo:
 	$(PYTHON) scripts/road_mark_detection.py
-
-train-cnn:
-	$(PYTHON) scripts/train_cnn.py
-
+log-model:
+	$(PYTHON) scripts/log_model.py
+register-model:
+	$(PYTHON) scripts/register_model.py
 # ============================
 # Cleanup
 # ============================
